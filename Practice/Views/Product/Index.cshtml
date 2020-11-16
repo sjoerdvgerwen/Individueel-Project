@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Product List Test";
+    string[] TableHeaders = new string[] { "ProductID", "Product Name", "Stock" };
+}
+
+<div class="table">
+    <table class="table table-bordered table-hover">
+        <thead>
+            
+                @{
+                    foreach (var product in ViewBag.Products)
+                    {
+                        <tr>
+                        <th>
+                            @product.ProductName
+
+                        </th>
+                        <th>
+                            @product.ProductDescription
+
+                        </th>
+                        </tr>
+                    }
+                }
+            
+        </thead>
+      
+                
+      
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+
+

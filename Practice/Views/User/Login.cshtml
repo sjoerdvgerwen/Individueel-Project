@@ -1,0 +1,29 @@
+﻿@model Practice.Models.User
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Create Account For Employees</h1>
+<br />
+
+@using (Html.BeginForm("Create", "User"))
+{
+   // <div class="form-group">
+   //     @Html.LabelFor(m => m.UserID)
+   //     @Html.TextBoxFor(m => m.UserID)
+   // </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.TextBoxFor(m => m.Password)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registreer</button>
+}
