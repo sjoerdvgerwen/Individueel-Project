@@ -38,5 +38,43 @@ namespace Warehouse.Database.Repository
             return user;
 
         }
+
+        public User GetUserName(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username)) throw new ArgumentNullException(nameof(username));
+
+            try
+            {
+                _con.Open();
+
+                var cmd = new MySqlCommand("SELECT Username, Password FROM user WHERE Username = @Username", _con);
+                cmd.Parameters.Add(new MySqlParameter("Username", username));
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var user = new User
+                    {
+                        UserName = reader["Username"].ToString(),
+                        Password = reader["Password"].ToString()
+                    };
+
+                    return user;
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                
+                throw e;
+            }
+            finally
+            {
+                _con.Close();
+            }
+        }
     }
 }

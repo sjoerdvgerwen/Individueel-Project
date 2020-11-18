@@ -10,7 +10,5 @@ namespace Warehouse.Application.Entity
         public string ProductName { get; set; }
 
         public string ProductDescription { get; set; }
-
-        List<Product> products = new List<Product>();
     }
 }

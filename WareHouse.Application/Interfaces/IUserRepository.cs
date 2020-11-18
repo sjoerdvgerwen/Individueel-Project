@@ -10,5 +10,7 @@ namespace Warehouse.Application.Interfaces
     {
         Task<User> AddUser(User user);
 
+        User GetUserName(string username);
+            
     }
 }

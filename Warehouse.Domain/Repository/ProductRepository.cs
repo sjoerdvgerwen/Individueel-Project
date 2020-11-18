@@ -13,7 +13,6 @@ namespace Warehouse.Database.Repository
     {
         private readonly MySqlConnection _con;
 
-
         // ??
         public ProductRepository(MySqlConnection con)
         {
@@ -41,7 +40,7 @@ namespace Warehouse.Database.Repository
             return product;
         }
 
-        //public async Task<Product> GetProducts(Product product) 
+        
         public List<Product> GetAllProducts()
         {
             if (products.Count > 0)
@@ -74,8 +73,6 @@ namespace Warehouse.Database.Repository
             }
             return products;
         }
-
-  
     }
 }
 

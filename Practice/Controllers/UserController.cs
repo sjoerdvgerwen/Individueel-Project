@@ -8,8 +8,9 @@ using Practice.Models;
 using Warehouse.Application.Interfaces;
 using Warehouse.Webapp.Models;
 using Warehouse.Application.Entity;
-
-
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Practice.Controllers
 
@@ -46,6 +47,30 @@ namespace Practice.Controllers
 
             return Ok(await _userRepository.AddUser(Newuser));
         }
+
+        public IActionResult Login(LoginViewModel model, string returnUrl)
+        {
+            
+            if (!ModelState.IsValid) return View(model);
+
+            
+            var user = _userRepository.GetUserName(model.Username);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                return View(model);
+            }
+
+            
+            var password = _userRepository.GetUserName(model.Password);
+            if (password == null)
+            {
+                ModelState.AddModelError("", "YOOO VERKEERD WACHTWOORD!");
+                return View(model);
+            }
+            return RedirectToAction("Index", "Product");
+        }
+
     }
 }
  
