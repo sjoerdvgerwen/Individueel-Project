@@ -12,5 +12,11 @@ namespace Warehouse.Application.Interfaces
 
         List<Product> GetAllProducts();
 
+        Product AddQuantity(Product Product);
+
+        Product ReduceQuantity(Product product);
+
+        Product GetProductDetails(Product product);
+
     }
 }

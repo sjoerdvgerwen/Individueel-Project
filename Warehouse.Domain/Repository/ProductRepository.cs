@@ -22,16 +22,18 @@ namespace Warehouse.Database.Repository
         MySqlDataReader datareader;
         List<Product> products = new List<Product>();
 
+
         public Product AddProduct(Product product)
         {
-             _con.Open();
+            _con.Open();
 
-            string query = "INSERT INTO Product (ProductID, ProductName, ProductDescription) VALUES(@Id, @Name, @Des)";
+            string query = "INSERT INTO Product (ProductID, ProductName, ProductDescription, ProductQuantity) VALUES(@Id, @Name, @Des, @Quan)";
             var command = new MySqlCommand(query, _con);
 
             command.Parameters.AddWithValue("@Id", product.ProductID);
             command.Parameters.AddWithValue("@Name", product.ProductName);
             command.Parameters.AddWithValue("@Des", product.ProductDescription);
+            command.Parameters.AddWithValue("@Quan", product.ProductQuantity);
 
             command.ExecuteNonQuery();
 
@@ -40,7 +42,7 @@ namespace Warehouse.Database.Repository
             return product;
         }
 
-        
+
         public List<Product> GetAllProducts()
         {
             if (products.Count > 0)
@@ -49,6 +51,7 @@ namespace Warehouse.Database.Repository
             }
             string query = "SELECT * FROM Product";
             var command = new MySqlCommand(query, _con);
+
             try
             {
                 _con.Open();
@@ -61,8 +64,10 @@ namespace Warehouse.Database.Repository
 
                     products.Add(new Product()
                     {
+                        ProductID = Guid.Parse(datareader["ProductID"].ToString()),
                         ProductName = datareader["ProductName"].ToString(),
-                        ProductDescription = datareader["ProductDescription"].ToString()
+                        ProductDescription = datareader["ProductDescription"].ToString(),
+                        ProductQuantity = (datareader.GetInt32("ProductQuantity"))
                     });
                 }
                 _con.Close();
@@ -72,6 +77,49 @@ namespace Warehouse.Database.Repository
                 throw ex;
             }
             return products;
+        }
+
+
+        public Product AddQuantity(Product product)
+        {
+            _con.Open();
+
+            string query = "UPDATE product SET ProductQuantity = ProductQuantity + @Quantity WHERE ProductID=@id";
+            var command = new MySqlCommand(query, _con);
+            command.Parameters.AddWithValue("@id", product.ProductID);
+            command.Parameters.AddWithValue("@Quantity", product.AddQuantity);
+
+
+            command.ExecuteNonQuery();
+
+            _con.Close();
+
+            return product;
+        }
+
+        public Product ReduceQuantity(Product product)
+        {
+            _con.Open();
+
+            string query = "UPDATE product SET ProductQuantity = ProductQuantity - @Quantity WHERE ProductID=@id";
+            var command = new MySqlCommand(query, _con);
+            command.Parameters.AddWithValue("@id", product.ProductID);
+            command.Parameters.AddWithValue("@Quantity", product.ReduceQuantity);
+
+
+            command.ExecuteNonQuery();
+
+            _con.Close();
+
+            return product;
+        }
+
+    
+
+        public Product GetProductDetails (Product product)
+        {
+
+            return product;
         }
     }
 }

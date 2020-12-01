@@ -39,8 +39,56 @@ namespace Warehouse.Webapp.Controllers
 
         public IActionResult CreateProduct()
         {
-            
-            
+            return View();
+        }
+
+        public IActionResult DeleteProduct()
+        {
+            return View();
+        }
+
+
+        public IActionResult GetProductDetails(ProductViewModel product)
+        {
+            Product GetProduct = new Product()
+            {
+                ProductID = product.ProductID
+            };
+
+            _productRepository.GetProductDetails(GetProduct);
+
+            return RedirectToAction("GetProductDetails");
+        }
+
+        
+        public IActionResult AddQuantity(ProductViewModel product)
+        {
+            Product ModifiedProduct = new Product()
+            {
+                AddQuantity = product.AddQuantity,
+                ProductID = product.ProductID
+            };
+
+            _productRepository.AddQuantity(ModifiedProduct);
+            return RedirectToAction("Index");
+
+        }
+
+
+            public IActionResult ReduceQuantity(ProductViewModel product)
+        {
+            Product reduceQuantity= new Product()
+            {
+                ReduceQuantity = product.ReduceQuantity,
+                ProductID = product.ProductID
+            };
+            _productRepository.ReduceQuantity(reduceQuantity);
+            return RedirectToAction("Index");
+
+        }
+
+        public IActionResult GetProductDetails()
+        {
             return View();
         }
 
@@ -53,13 +101,12 @@ namespace Warehouse.Webapp.Controllers
                 ProductID = Guid.NewGuid(),
                 ProductName = product.ProductName,
                 ProductDescription = product.ProductDescription,
+                ProductQuantity = product.ProductQuantity
             };
 
             _productRepository.AddProduct(newProduct);
             
             return RedirectToAction("Index");   
         }
-
-
     }
 }
