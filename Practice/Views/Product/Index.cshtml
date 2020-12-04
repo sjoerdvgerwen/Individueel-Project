@@ -1,7 +1,6 @@
 ﻿@model Warehouse.Webapp.Models.ProductViewModel
 @{
     ViewData["Title"] = "Product List";
-    
 }
 
 <div class="table">
@@ -10,7 +9,7 @@
             <p><a asp-controller="Product" asp-action="CreateProduct"><button class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Create New Product</button></a></p>
             <p><a asp-controller="Product" asp-action="DeleteProduct"><button class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Delete Existing Product</button></a></p>
         </tr>
-        
+
         <tr>
             <th>Productname</th>
             <th>Product Description</th>
@@ -18,44 +17,51 @@
             <th>Add</th>
             <th>Reduce</th>
         </tr>
-                
-                    @foreach (var product in ViewBag.Products)
+
+        @foreach (var product in ViewBag.Products)
+        {
+            <tr>
+                <th>
+                    @product.ProductName
+                </th>
+
+                <th>
+                    @product.ProductDescription
+                </th>
+
+                <th>
+                    @product.ProductQuantity
+                </th>
+
+                <th>
+                    @using (Html.BeginForm("AddQuantity", "Product", FormMethod.Post))
                     {
-    <tr>
-        <th>
-            @product.ProductName
-        </th>
+                        @Html.TextBoxFor(m => m.AddQuantity)
+                        <input type="hidden" value="@product.ProductID" asp-for="@Model.ProductID" />
+                        <p><input type="submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" value=" + " /></p>
+                    }
+                </th>
 
-        <th>
-            @product.ProductDescription
-        </th>
-
-        <th>
-            @product.ProductQuantity
-        </th>
-
-        <th>
-            @using (Html.BeginForm("AddQuantity", "Product", FormMethod.Post))
-            {
-                @Html.TextBoxFor(m => m.AddQuantity)
-                <input type="hidden" value="@product.ProductID" asp-for="@Model.ProductID"/>
-                <p><input type="submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" value=" + " /></p>
-            }
-        </th>
-
-        
-        <th>
-            @using (Html.BeginForm("ReduceQuantity", "Product", FormMethod.Post))
-            {
-                @Html.TextBoxFor(m => m.ReduceQuantity)
-                <input type="hidden" value="@product.ProductID" asp-for="@Model.ProductID" />
-                <p><input type="submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" value=" - " /></p>
-            }
-        </th>
-    </tr>
+                <th>
+                    @using (Html.BeginForm("ReduceQuantity", "Product", FormMethod.Post))
+                    {
+                        @Html.TextBoxFor(m => m.ReduceQuantity)
+                        <input type="hidden" value="@product.ProductID" asp-for="@Model.ProductID" />
+                        <p><input type="submit" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" value=" - " /></p>
+                    }
+                </th>
 
 
-                     }  
+                <th>
+                    <input type="text" value="@product.ProductID" asp-for="@Model.ProductID" />
+                    @Html.ActionLink("Hatsiflatsie", "GetProductDetails", "Product", new { productID = product.ProductID });
+
+                    <p><a asp-controller="Product" asp-action="GetProductDetails"><button class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Product Info</button></a></p>
+
+
+                </th>
+            </tr>
+        }
     </table>
 </div>
 

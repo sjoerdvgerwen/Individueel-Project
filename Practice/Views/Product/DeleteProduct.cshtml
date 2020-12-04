@@ -5,15 +5,15 @@
 }
 
 
-<tr>
-    <td>Select which product you want to delete:</td>
-    <td>
-        @Html.DropDownList("Products", new List<SelectListItem>
-        {
-       foreach(var product in ViewBag.Products)
-            {
-                new SelectListItem { Text = @product.ProductName };
-            }
-        })
-    </td>
-</tr>
+@Html.DropDownList("Products", new List<SelectListItem>())
+
+
+@foreach (var product in ViewBag.Products)
+{
+    new SelectListItem { Text = @product.ProductName };
+}
+
+
+
+
+

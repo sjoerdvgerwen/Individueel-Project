@@ -18,49 +18,40 @@ namespace Warehouse.Webapp.Controllers
         {
             _productRepository = productRepository;
         }
-
-        //Connectie van View Controller naar Application Interfaces
-        public IActionResult Index()
+        
+        
+        //List in index
+        public IActionResult Index() 
         {
            List<Product> products = _productRepository.GetAllProducts();
 
             ViewBag.Products = products;
             return View();
         }
-
-    //        public async Task<IActionResult> GetProduct(ProductViewModel product)
-   //     {
-    //        Product Products = new Product()
-    //        {
-                
-     
-         
-
-
+        
+        //View CreateProduct.cshtml
         public IActionResult CreateProduct()
         {
             return View();
         }
 
-        public IActionResult DeleteProduct()
+
+        //View naar GetProductDetails
+        public IActionResult RedirectToDetails()
         {
-            return View();
-        }
-
-
-        public IActionResult GetProductDetails(ProductViewModel product)
-        {
-            Product GetProduct = new Product()
-            {
-                ProductID = product.ProductID
-            };
-
-            _productRepository.GetProductDetails(GetProduct);
-
             return RedirectToAction("GetProductDetails");
         }
 
-        
+        //Vraag productinformatie op
+        public IActionResult GetProductDetails(Guid productID)
+        {
+            Product p = _productRepository.GetProductDetails(productID);
+
+            ProductViewModel p2 = new ProductViewModel(p);
+            return View("GetProductDetails", p2);
+        }
+
+        //Add Quantity in List
         public IActionResult AddQuantity(ProductViewModel product)
         {
             Product ModifiedProduct = new Product()
@@ -86,12 +77,6 @@ namespace Warehouse.Webapp.Controllers
             return RedirectToAction("Index");
 
         }
-
-        public IActionResult GetProductDetails()
-        {
-            return View();
-        }
-
 
         // Methode voegt product toe, neemt de waardes over uit ViewModel, en maakt instantie van de klasse.
         public IActionResult AddProduct(ProductViewModel product) 

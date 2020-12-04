@@ -21,6 +21,8 @@ namespace Warehouse.Database.Repository
 
         MySqlDataReader datareader;
         List<Product> products = new List<Product>();
+        List<Product> productDetails = new List<Product>();
+
 
 
         public Product AddProduct(Product product)
@@ -61,7 +63,6 @@ namespace Warehouse.Database.Repository
 
                 while (datareader.Read())
                 {
-
                     products.Add(new Product()
                     {
                         ProductID = Guid.Parse(datareader["ProductID"].ToString()),
@@ -114,10 +115,27 @@ namespace Warehouse.Database.Repository
             return product;
         }
 
-    
-
-        public Product GetProductDetails (Product product)
+        
+        public Product GetProductDetails(Guid ProductID)
         {
+            _con.Open();
+
+            string query = "SELECT * FROM Product WHERE ProductID=@id";
+            var command = new MySqlCommand(query, _con);
+
+            command.Parameters.AddWithValue(@"id", ProductID.ToString());
+
+            MySqlDataReader reader = command.ExecuteReader();
+            Product product = new Product();
+            while (reader.Read())
+            {
+                product.ProductID = new Guid(reader["ProductID"].ToString());
+                product.ProductName = reader["ProductName"].ToString();
+                product.ProductDescription = reader["ProductDescription"].ToString();
+                product.ProductQuantity = (reader.GetInt32("ProductQuantity"));
+            }
+
+            _con.Close();
 
             return product;
         }

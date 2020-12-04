@@ -50,9 +50,7 @@ namespace Practice.Controllers
 
         public IActionResult Login(LoginViewModel model, string returnUrl)
         {
-            
             if (!ModelState.IsValid) return View(model);
-
             
             var user = _userRepository.GetUserName(model.Username);
             if (user == null)
@@ -70,7 +68,6 @@ namespace Practice.Controllers
             }
             return RedirectToAction("Index", "Product");
         }
-
     }
 }
  
