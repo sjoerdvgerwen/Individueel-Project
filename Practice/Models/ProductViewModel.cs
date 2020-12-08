@@ -16,6 +16,8 @@ namespace Warehouse.Webapp.Models
         {
             ProductID = product.ProductID;
             ProductName = product.ProductName;
+            ProductDescription = product.ProductDescription;
+            ProductQuantity = product.ProductQuantity;
         }
 
         public Guid ProductID { get; set; }

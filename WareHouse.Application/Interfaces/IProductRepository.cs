@@ -16,6 +16,8 @@ namespace Warehouse.Application.Interfaces
 
         Product ReduceQuantity(Product product);
 
+        DeleteProduct Delete(Guid productID);
+
         Product GetProductDetails(Guid product);
     }
 }

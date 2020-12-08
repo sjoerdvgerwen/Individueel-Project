@@ -53,12 +53,7 @@
 
 
                 <th>
-                    <input type="text" value="@product.ProductID" asp-for="@Model.ProductID" />
-                    @Html.ActionLink("Hatsiflatsie", "GetProductDetails", "Product", new { productID = product.ProductID });
-
-                    <p><a asp-controller="Product" asp-action="GetProductDetails"><button class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Product Info</button></a></p>
-
-
+                    @Html.ActionLink("Product Info", "GetProductDetails", "Product", new { productID = product.ProductID });
                 </th>
             </tr>
         }

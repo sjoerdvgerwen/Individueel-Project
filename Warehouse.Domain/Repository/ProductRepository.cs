@@ -21,7 +21,6 @@ namespace Warehouse.Database.Repository
 
         MySqlDataReader datareader;
         List<Product> products = new List<Product>();
-        List<Product> productDetails = new List<Product>();
 
 
 
@@ -71,6 +70,7 @@ namespace Warehouse.Database.Repository
                         ProductQuantity = (datareader.GetInt32("ProductQuantity"))
                     });
                 }
+                datareader.Close();
                 _con.Close();
             }
             catch (Exception ex)
@@ -115,6 +115,24 @@ namespace Warehouse.Database.Repository
             return product;
         }
 
+        public DeleteProduct Delete (Guid productID)
+        {
+            _con.Open();
+
+            string query = "DELETE FROM product WHERE ProductID=@id;";
+            var command = new MySqlCommand(query, _con);
+
+            DeleteProduct deleteProduct = new DeleteProduct();
+            deleteProduct.ProductID = productID;
+
+            command.Parameters.AddWithValue(@"id", deleteProduct.ProductID);
+
+            command.ExecuteNonQuery();
+
+            _con.Close();
+                
+            return deleteProduct;
+        }
         
         public Product GetProductDetails(Guid ProductID)
         {
@@ -135,6 +153,7 @@ namespace Warehouse.Database.Repository
                 product.ProductQuantity = (reader.GetInt32("ProductQuantity"));
             }
 
+            reader.Close();
             _con.Close();
 
             return product;

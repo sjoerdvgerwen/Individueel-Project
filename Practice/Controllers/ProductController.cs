@@ -18,8 +18,42 @@ namespace Warehouse.Webapp.Controllers
         {
             _productRepository = productRepository;
         }
-        
-        
+
+        public IActionResult DeleteProduct(Product product)
+        {
+            List<Product> products = _productRepository.GetAllProducts();
+
+            var viewModel = new DeleteProductViewModel
+            {
+                Products = products
+            };
+
+            return View(viewModel);
+        }
+
+
+        public IActionResult Delete (Guid productID)
+        {
+            
+            DeleteProduct selectedProduct = _productRepository.Delete(productID);
+
+            selectedProduct.ProductID = productID;
+
+            return RedirectToAction("DeleteProduct", selectedProduct);
+        }
+
+        //Vraag productinformatie op
+            public IActionResult GetProductDetails(Guid productID)
+        {
+
+            Product p = _productRepository.GetProductDetails(productID);
+
+            ProductViewModel p2 = new ProductViewModel(p);
+
+            return View("GetProductDetails", p2);
+        }
+
+
         //List in index
         public IActionResult Index() 
         {
@@ -36,20 +70,7 @@ namespace Warehouse.Webapp.Controllers
         }
 
 
-        //View naar GetProductDetails
-        public IActionResult RedirectToDetails()
-        {
-            return RedirectToAction("GetProductDetails");
-        }
-
-        //Vraag productinformatie op
-        public IActionResult GetProductDetails(Guid productID)
-        {
-            Product p = _productRepository.GetProductDetails(productID);
-
-            ProductViewModel p2 = new ProductViewModel(p);
-            return View("GetProductDetails", p2);
-        }
+        
 
         //Add Quantity in List
         public IActionResult AddQuantity(ProductViewModel product)
@@ -62,11 +83,9 @@ namespace Warehouse.Webapp.Controllers
 
             _productRepository.AddQuantity(ModifiedProduct);
             return RedirectToAction("Index");
-
         }
 
-
-            public IActionResult ReduceQuantity(ProductViewModel product)
+        public IActionResult ReduceQuantity(ProductViewModel product)
         {
             Product reduceQuantity= new Product()
             {
@@ -75,7 +94,6 @@ namespace Warehouse.Webapp.Controllers
             };
             _productRepository.ReduceQuantity(reduceQuantity);
             return RedirectToAction("Index");
-
         }
 
         // Methode voegt product toe, neemt de waardes over uit ViewModel, en maakt instantie van de klasse.

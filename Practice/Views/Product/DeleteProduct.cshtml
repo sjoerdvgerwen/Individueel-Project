@@ -1,19 +1,18 @@
-﻿@model Warehouse.Webapp.Models.ProductViewModel
+﻿@model Warehouse.Webapp.Models.DeleteProductViewModel
 
 @{
     ViewData["Title"] = "Delete Product";
 }
 
-
-@Html.DropDownList("Products", new List<SelectListItem>())
-
-
-@foreach (var product in ViewBag.Products)
-{
-    new SelectListItem { Text = @product.ProductName };
-}
-
-
-
+<label for="cars">Which product do you want to delete ? </label>
+<form asp-controller="Product" asp-action="Delete" type="post">
+    <select name="productID">
+        @foreach (var product in Model.Products)
+        {
+            <option value="@product.ProductID"> @product.ProductName</option>    
+        }
+    </select>
+    <button type="submit">SUBMIT</button>
+</form>
 
 
