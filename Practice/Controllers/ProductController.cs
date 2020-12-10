@@ -69,6 +69,11 @@ namespace Warehouse.Webapp.Controllers
             return View();
         }
 
+        
+        public IActionResult ProductList()
+        {
+            return View();
+        }
 
         
 

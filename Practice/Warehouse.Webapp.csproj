@@ -21,4 +21,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="vendor\fontawesome-free\package.json" />
+  </ItemGroup>
+
 </Project>
