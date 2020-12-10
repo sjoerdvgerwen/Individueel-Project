@@ -25,13 +25,14 @@ namespace Practice.Controllers
         {
             _userRepository = userRepository;
         }
-
-        public IActionResult Index()
+        
+        public IActionResult Register()
         {
             return View();
         }
-
-        public IActionResult Register()
+        
+        
+        public IActionResult Index()
         {
             return View();
         }
