@@ -30,12 +30,6 @@ namespace Practice.Controllers
         {
             return View();
         }
-        
-        
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public async Task<IActionResult> AddUser(UserViewModel user) 
         { 
@@ -67,7 +61,7 @@ namespace Practice.Controllers
                 ModelState.AddModelError("", "YOOO VERKEERD WACHTWOORD!");
                 return View(model);
             }
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("ProductList", "Product");
         }
     }
 }
