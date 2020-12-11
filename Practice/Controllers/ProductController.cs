@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Warehouse.Webapp.Models;
 using Warehouse.Application.Entity;
 using Warehouse.Application.Interfaces;
+using Warehouse.Webapp.Views.Product;
 
 namespace Warehouse.Webapp.Controllers
 {
@@ -72,13 +73,19 @@ namespace Warehouse.Webapp.Controllers
         
         public IActionResult ProductList()
         {
-            return View();
+            List<Product> products = _productRepository.GetAllProducts();
+
+            var productList = new ProductListViewModel()
+            {
+                ProductList = products
+            };
+            return View(productList);
         }
 
         
 
         //Add Quantity in List
-        public IActionResult AddQuantity(ProductViewModel product)
+        public IActionResult AddQuantity(AddProductsViewModel product)
         {
             Product ModifiedProduct = new Product()
             {
@@ -87,10 +94,10 @@ namespace Warehouse.Webapp.Controllers
             };
 
             _productRepository.AddQuantity(ModifiedProduct);
-            return RedirectToAction("Index");
+            return RedirectToAction("ProductList");
         }
 
-        public IActionResult ReduceQuantity(ProductViewModel product)
+        public IActionResult ReduceQuantity(ReduceProductViewModel product)
         {
             Product reduceQuantity= new Product()
             {
@@ -98,7 +105,7 @@ namespace Warehouse.Webapp.Controllers
                 ProductID = product.ProductID
             };
             _productRepository.ReduceQuantity(reduceQuantity);
-            return RedirectToAction("Index");
+            return RedirectToAction("ProductList");
         }
 
         // Methode voegt product toe, neemt de waardes over uit ViewModel, en maakt instantie van de klasse.
@@ -114,7 +121,7 @@ namespace Warehouse.Webapp.Controllers
 
             _productRepository.AddProduct(newProduct);
             
-            return RedirectToAction("Index");   
+            return RedirectToAction("ProductList");   
         }
     }
 }
