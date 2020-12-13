@@ -47,12 +47,13 @@ namespace Warehouse.Webapp.Controllers
             public IActionResult GetProductDetails(Guid productID)
         {
 
-            Product p = _productRepository.GetProductDetails(productID);
+            Product product = _productRepository.GetProductDetails(productID);
 
-            ProductViewModel p2 = new ProductViewModel(p);
+            ProductDetailsViewModel productModel = new ProductDetailsViewModel(product);
 
-            return View("GetProductDetails", p2);
+            return View("GetProductDetails", productModel);
         }
+            
 
 
         //List in index
@@ -85,7 +86,7 @@ namespace Warehouse.Webapp.Controllers
         
 
         //Add Quantity in List
-        public IActionResult AddQuantity(AddProductsViewModel product)
+        public IActionResult AddQuantity(AddProductViewModel product)
         {
             Product ModifiedProduct = new Product()
             {
@@ -108,8 +109,8 @@ namespace Warehouse.Webapp.Controllers
             return RedirectToAction("ProductList");
         }
 
-        // Methode voegt product toe, neemt de waardes over uit ViewModel, en maakt instantie van de klasse.
-        public IActionResult AddProduct(ProductViewModel product) 
+        
+        public IActionResult AddProduct(NewProductViewModel product) 
         {
             Product newProduct = new Product()
             {

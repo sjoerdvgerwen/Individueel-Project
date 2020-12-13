@@ -50,7 +50,7 @@ namespace Warehouse.Database.Repository
             {
                 products.Clear();
             }
-            string query = "SELECT * FROM Product";
+            string query = "SELECT ProductID, ProductName, ProductDescription, ProductQuantity FROM Product";
             var command = new MySqlCommand(query, _con);
 
             try
@@ -138,7 +138,7 @@ namespace Warehouse.Database.Repository
         {
             _con.Open();
 
-            string query = "SELECT * FROM Product WHERE ProductID=@id";
+            string query = "SELECT ProductID, ProductName, ProductDescription, ProductQuantity FROM Product WHERE ProductID=@id";
             var command = new MySqlCommand(query, _con);
 
             command.Parameters.AddWithValue(@"id", ProductID.ToString());

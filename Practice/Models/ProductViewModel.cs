@@ -10,8 +10,6 @@ namespace Warehouse.Webapp.Models
 {
     public class ProductViewModel 
     {
-
-  
         public ProductViewModel(Product product)
         {
             ProductID = product.ProductID;
