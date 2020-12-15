@@ -12,8 +12,7 @@ namespace Warehouse.Database.Repository
     public class ProductRepository : IProductRepository
     {
         private readonly MySqlConnection _con;
-
-        // ??
+        
         public ProductRepository(MySqlConnection con)
         {
             _con = con;
@@ -23,12 +22,12 @@ namespace Warehouse.Database.Repository
         List<Product> products = new List<Product>();
 
 
-
         public Product AddProduct(Product product)
         {
             _con.Open();
 
-            string query = "INSERT INTO Product (ProductID, ProductName, ProductDescription, ProductQuantity) VALUES(@Id, @Name, @Des, @Quan)";
+            string query =
+                "INSERT INTO Product (ProductID, ProductName, ProductDescription, ProductQuantity) VALUES(@Id, @Name, @Des, @Quan)";
             var command = new MySqlCommand(query, _con);
 
             command.Parameters.AddWithValue("@Id", product.ProductID);
@@ -50,6 +49,7 @@ namespace Warehouse.Database.Repository
             {
                 products.Clear();
             }
+
             string query = "SELECT ProductID, ProductName, ProductDescription, ProductQuantity FROM Product";
             var command = new MySqlCommand(query, _con);
 
@@ -70,6 +70,7 @@ namespace Warehouse.Database.Repository
                         ProductQuantity = (datareader.GetInt32("ProductQuantity"))
                     });
                 }
+
                 datareader.Close();
                 _con.Close();
             }
@@ -77,6 +78,7 @@ namespace Warehouse.Database.Repository
             {
                 throw ex;
             }
+
             return products;
         }
 
@@ -115,7 +117,7 @@ namespace Warehouse.Database.Repository
             return product;
         }
 
-        public DeleteProduct Delete (Guid productID)
+        public DeleteProduct Delete(Guid productID)
         {
             _con.Open();
 
@@ -130,15 +132,16 @@ namespace Warehouse.Database.Repository
             command.ExecuteNonQuery();
 
             _con.Close();
-                
+
             return deleteProduct;
         }
-        
+
         public Product GetProductDetails(Guid ProductID)
         {
             _con.Open();
 
-            string query = "SELECT ProductID, ProductName, ProductDescription, ProductQuantity FROM Product WHERE ProductID=@id";
+            string query =
+                "SELECT ProductID, ProductName, ProductDescription, ProductQuantity FROM Product WHERE ProductID=@id";
             var command = new MySqlCommand(query, _con);
 
             command.Parameters.AddWithValue(@"id", ProductID.ToString());
@@ -160,6 +163,3 @@ namespace Warehouse.Database.Repository
         }
     }
 }
-
-           
-
