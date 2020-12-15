@@ -24,18 +24,13 @@ namespace Warehouse.Webapp.Controllers
         {
             List<Product> products = _productRepository.GetAllProducts();
 
-            var viewModel = new DeleteProductViewModel
-            {
-                Products = products
-            };
+            var viewModel = new DeleteProductViewModel {Products = products};
 
             return View(viewModel);
         }
 
-
-        public IActionResult Delete (Guid productID)
+        public IActionResult Delete(Guid productID)
         {
-            
             DeleteProduct selectedProduct = _productRepository.Delete(productID);
 
             selectedProduct.ProductID = productID;
@@ -43,74 +38,48 @@ namespace Warehouse.Webapp.Controllers
             return RedirectToAction("DeleteProduct", selectedProduct);
         }
 
-        //Vraag productinformatie op
-            public IActionResult GetProductDetails(Guid productID)
+        public IActionResult GetProductDetails(Guid productID)
         {
-
             Product product = _productRepository.GetProductDetails(productID);
 
             ProductDetailsViewModel productModel = new ProductDetailsViewModel(product);
 
             return View("GetProductDetails", productModel);
         }
-            
 
-
-        //List in index
-        public IActionResult Index() 
-        {
-           List<Product> products = _productRepository.GetAllProducts();
-
-            ViewBag.Products = products;
-            return View();
-        }
-        
-        //View CreateProduct.cshtml
         public IActionResult CreateProduct()
         {
             return View();
         }
 
-        
         public IActionResult ProductList()
         {
             List<Product> products = _productRepository.GetAllProducts();
 
-            var productList = new ProductListViewModel()
-            {
-                ProductList = products
-            };
+            var productList = new ProductListViewModel() {ProductList = products};
             return View(productList);
         }
-
-        
 
         //Add Quantity in List
         public IActionResult AddQuantity(AddProductViewModel product)
         {
-            Product ModifiedProduct = new Product()
-            {
-                AddQuantity = product.AddQuantity,
-                ProductID = product.ProductID
-            };
+            Product modifiedProduct = new Product() {AddQuantity = product.AddQuantity, ProductID = product.ProductID};
 
-            _productRepository.AddQuantity(ModifiedProduct);
+            _productRepository.AddQuantity(modifiedProduct);
             return RedirectToAction("ProductList");
         }
 
         public IActionResult ReduceQuantity(ReduceProductViewModel product)
         {
-            Product reduceQuantity= new Product()
+            Product reduceQuantity = new Product()
             {
-                ReduceQuantity = product.ReduceQuantity,
-                ProductID = product.ProductID
+                ReduceQuantity = product.ReduceQuantity, ProductID = product.ProductID
             };
             _productRepository.ReduceQuantity(reduceQuantity);
             return RedirectToAction("ProductList");
         }
 
-        
-        public IActionResult AddProduct(NewProductViewModel product) 
+        public IActionResult AddProduct(NewProductViewModel product)
         {
             Product newProduct = new Product()
             {
@@ -121,8 +90,8 @@ namespace Warehouse.Webapp.Controllers
             };
 
             _productRepository.AddProduct(newProduct);
-            
-            return RedirectToAction("ProductList");   
+
+            return RedirectToAction("ProductList");
         }
     }
 }

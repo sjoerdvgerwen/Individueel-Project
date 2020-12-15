@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace Practice.Controllers
+namespace Warehouse.Webapp.Controllers
 
     
 {
@@ -27,6 +27,11 @@ namespace Practice.Controllers
         }
         
         public IActionResult Register()
+        {
+            return View();
+        }
+        
+        public IActionResult UserSettings()
         {
             return View();
         }
