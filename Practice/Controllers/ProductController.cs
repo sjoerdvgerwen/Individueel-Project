@@ -51,6 +51,11 @@ namespace Warehouse.Webapp.Controllers
         {
             return View();
         }
+        
+        public IActionResult BarcodeScanner()
+        {
+            return View();
+        }
 
         public IActionResult ProductList()
         {
