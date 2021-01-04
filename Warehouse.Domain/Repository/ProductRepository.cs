@@ -161,5 +161,27 @@ namespace Warehouse.Database.Repository
 
             return product;
         }
+
+        public void AddBarcodeQuantity(string barcodeId)
+        {
+            int AddQuantity = 1;
+            _con.Open();
+            
+
+            string query = "UPDATE product SET ProductQuantity = ProductQuantity + @Quantity WHERE BarcodeID=@id";
+            var command = new MySqlCommand(query, _con);
+            command.Parameters.AddWithValue("@id", barcodeId);
+            command.Parameters.AddWithValue("@Quantity", AddQuantity);
+            
+            command.ExecuteNonQuery();
+
+            _con.Close();
+            
+        }
+
+        public void DecreaseBarcodeQuantity(string barcodeId)
+        {
+            
+        }
     }
 }

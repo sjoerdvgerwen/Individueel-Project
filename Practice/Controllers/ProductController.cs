@@ -57,6 +57,13 @@ namespace Warehouse.Webapp.Controllers
             return View();
         }
 
+        public IActionResult AddBarcodeQuantity(string barcodeId)
+        {
+            _productRepository.AddBarcodeQuantity(barcodeId);
+            
+            return RedirectToAction("BarcodeScanner");
+        }
+
         public IActionResult ProductList()
         {
             List<Product> products = _productRepository.GetAllProducts();
