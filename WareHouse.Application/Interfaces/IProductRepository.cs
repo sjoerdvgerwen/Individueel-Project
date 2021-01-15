@@ -23,5 +23,7 @@ namespace Warehouse.Application.Interfaces
         void AddBarcodeQuantity(string barcodeId);
 
         void DecreaseBarcodeQuantity(string barcodeId);
+        
+        Product GetProductByBarcode(string newBarcodeId);
     }
 }

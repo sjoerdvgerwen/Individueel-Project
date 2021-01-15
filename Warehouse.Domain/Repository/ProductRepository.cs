@@ -176,12 +176,47 @@ namespace Warehouse.Database.Repository
             command.ExecuteNonQuery();
 
             _con.Close();
-            
         }
 
         public void DecreaseBarcodeQuantity(string barcodeId)
         {
+            int DecreaseQuantity = -1;
+            _con.Open();
             
+
+            string query = "UPDATE product SET ProductQuantity = ProductQuantity + @Quantity WHERE BarcodeID=@id";
+            var command = new MySqlCommand(query, _con);
+            command.Parameters.AddWithValue("@id", barcodeId);
+            command.Parameters.AddWithValue("@Quantity", DecreaseQuantity);
+            
+            command.ExecuteNonQuery();
+
+            _con.Close();
+        }
+
+        public Product GetProductByBarcode(string newBarcodeId)
+        {
+            _con.Open();
+
+            string query =
+                "SELECT ProductName, ProductDescription, ProductQuantity FROM Product WHERE BarcodeID=@id";
+            var command = new MySqlCommand(query, _con);
+
+            command.Parameters.AddWithValue(@"id", newBarcodeId);
+
+            MySqlDataReader reader = command.ExecuteReader();
+            Product product = new Product();
+            while (reader.Read())
+            {
+                product.ProductName = reader["ProductName"].ToString();
+                product.ProductDescription = reader["ProductDescription"].ToString();
+                product.ProductQuantity = (reader.GetInt32("ProductQuantity"));
+            }
+
+            reader.Close();
+            _con.Close();
+
+            return product;
         }
     }
 }
