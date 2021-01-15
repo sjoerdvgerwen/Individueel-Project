@@ -1,4 +1,4 @@
-@model Warehouse.Webapp.Models.BarcodeViewModel
+@model Warehouse.Webapp.Models.NewProductViewModel
 
 @{
     Layout = null;
@@ -180,10 +180,10 @@
                     </div>
                     <div class="card-body">
                         <label for="cars">Scan a product to add or decrease stock</label>
-                        <form asp-controller="Product" asp-action="AddBarcodeQuantity">
+                        <form asp-controller="Product" asp-action="GetUpdatedBarcodeProduct">
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Add product stock by scaning your barcode</label>
-                                <input name="barcodeId" tabindex="1" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"/>
+                                <input name="newBarcodeId" tabindex="1" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"/>
                             </div>
                             <div class="pb-lg-0 pb-5">
                                 <button tabindex="1" type="submit" id="kt_shift_submit" class="btn btn-success btn-icon-split">Add Product stock</button>
@@ -191,14 +191,33 @@
                         </form>
                     </div>
                     
+                     <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">@Html.DisplayFor(model => model.ProductName)</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>
+                                                <b>Product Name</b>
+                                            </p>
+                                            @Html.DisplayFor(model => model.ProductName) &nbsp;
+                                            <p>
+                                                <b>Product Description</b>
+                                            </p>@Html.DisplayFor(model => model.ProductDescription)
+                    
+                                            <p>
+                                                <b>Product Quantity</b>
+                                            </p>@Html.DisplayFor(model => model.ProductQuantity)
+                                        </div>
+                                    </div>
+                    
                     <div class="card-body">
-                    <form asp-controller="Product" asp-action="DecreaseBarcodeQuantity">
+                    <form>
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Decrease product stock by scaning your barcode</label>
-                                <input asp-for="BarcodeID" tabindex="1" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"/>
+                                <input name="newBarcodeId" tabindex="1" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"/>
                             </div>
                             <div class="pb-lg-0 pb-5">
-                                <button tabindex="1" type="submit" id="kt_shift_submit" class="btn btn-danger btn-icon-split">Delete Product stock</button>
+                                <button tabindex="1" type="submit" id="kt_shift_submit" class="btn btn-danger btn-icon-split">Decrease Product stock</button>
                             </div>
                         </form>
                     </div>

@@ -19,5 +19,11 @@ namespace Warehouse.Application.Interfaces
         DeleteProduct Delete(Guid productID);
 
         Product GetProductDetails(Guid product);
+
+        void AddBarcodeQuantity(string barcodeId);
+
+        void DecreaseBarcodeQuantity(string barcodeId);
+        
+        Product GetProductByBarcode(string newBarcodeId);
     }
 }

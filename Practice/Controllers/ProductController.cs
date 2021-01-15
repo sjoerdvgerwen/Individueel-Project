@@ -56,6 +56,34 @@ namespace Warehouse.Webapp.Controllers
         {
             return View();
         }
+        
+        public IActionResult GetUpdatedBarcodeProduct(string newBarcodeId)
+        {
+            _productRepository.AddBarcodeQuantity(newBarcodeId);
+            Product product = _productRepository.GetProductByBarcode(newBarcodeId);
+            NewProductViewModel viewmodel = new NewProductViewModel()
+            {
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                ProductQuantity = product.ProductQuantity
+            };
+            
+            return View(viewmodel);
+        }
+
+        public IActionResult AddBarcodeQuantity(string barcodeId)
+        {
+            _productRepository.AddBarcodeQuantity(barcodeId);
+            
+            return RedirectToAction("GetUpdatedBarcodeProduct", new {newBarcodeId = barcodeId});
+        }
+        
+        public IActionResult DecreaseBarcodeQuantity(string barcodeId)
+        {
+            _productRepository.DecreaseBarcodeQuantity(barcodeId);
+            
+            return RedirectToAction("GetUpdatedBarcodeProduct", new {newBarcodeId = barcodeId});
+        }
 
         public IActionResult ProductList()
         {
@@ -65,7 +93,7 @@ namespace Warehouse.Webapp.Controllers
             return View(productList);
         }
 
-        //Add Quantity in List
+        
         public IActionResult AddQuantity(AddProductViewModel product)
         {
             Product modifiedProduct = new Product() {AddQuantity = product.AddQuantity, ProductID = product.ProductID};

@@ -12,9 +12,7 @@ namespace Warehouse.Database.Repository
    public class UserRepository : IUserRepository
     {
         private readonly MySqlConnection _con;
-
-
-        // ??
+        
         public UserRepository(MySqlConnection con)
         {
             _con = con;
