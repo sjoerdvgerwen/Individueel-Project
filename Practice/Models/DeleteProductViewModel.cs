@@ -9,8 +9,6 @@ namespace Warehouse.Webapp.Models
     public class DeleteProductViewModel
     {
         public List<Product> Products { get; set; }
-
-        public string ProductToDeleteId { get; set; }
     }
 
 }

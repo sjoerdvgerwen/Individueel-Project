@@ -15,5 +15,7 @@ namespace Warehouse.Application.Entity
 
         public int AddQuantity { get; set; }
         public int ReduceQuantity { get; set; }
+        
+        public string BarcodeId { get; set; }
     }
 }

@@ -36,7 +36,8 @@ namespace Practice
 
             services.AddTransient<MySqlConnection>(_ => new MySqlConnection("server=studmysql01.fhict.local;user=dbi418463;password=database;database=dbi418463"));
             services.AddTransient<IProductRepository, ProductRepository>(); //DI Kent nu de Application.Interface -> Database.Repository 
-            services.AddTransient<IUserRepository, UserRepository>(); 
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
 
 
         }

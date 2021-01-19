@@ -182,18 +182,21 @@
                         <label for="cars">Which product do you want to create ? </label>
                         <form asp-controller="Product" asp-action="AddProduct">
                             <div class="form-group">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Product Name</label>
+                                <label class="font-size-h6 font-weight-bolder text-dark">Product Name:</label>
                                 <input asp-for="ProductName" tabindex="1" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"/>
                             </div>
                             <div class="form-group">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Product Description</label>
+                                <label class="font-size-h6 font-weight-bolder text-dark">Product Description:</label>
                                 <input asp-for="ProductDescription" tabindex="1" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"/>
                             </div>
                             <div class="form-group">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Product Quantity</label>
+                                <label class="font-size-h6 font-weight-bolder text-dark">Product Quantity:</label>
                                 <input asp-for="ProductQuantity" tabindex="1" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"/>
                             </div>
-
+                            <div class="form-group">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Create a 8 digit barcode:</label>
+                                <input asp-for="BarcodeId" tabindex="1" class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"/>
+                            </div>
                             <div class="pb-lg-0 pb-5">
                                 <button tabindex="1" type="submit" id="kt_shift_submit" class="btn btn-success btn-icon-split">Create Product</button>
                             </div>

@@ -11,6 +11,7 @@ namespace Warehouse.Webapp.Models
             ProductName = product.ProductName;
             ProductDescription = product.ProductDescription;
             ProductQuantity = product.ProductQuantity;
+            BarcodeId = product.BarcodeId;
         }
         public Guid ProductID { get; set; }
         
@@ -19,6 +20,8 @@ namespace Warehouse.Webapp.Models
         public string ProductDescription { get; set; }
         
         public int ProductQuantity { get; set; }
+        
+        public string BarcodeId { get; set; }
         
     }
 }

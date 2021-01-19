@@ -27,13 +27,14 @@ namespace Warehouse.Database.Repository
             _con.Open();
 
             string query =
-                "INSERT INTO Product (ProductID, ProductName, ProductDescription, ProductQuantity) VALUES(@Id, @Name, @Des, @Quan)";
+                "INSERT INTO Product (ProductID, ProductName, ProductDescription, ProductQuantity, BarcodeId) VALUES(@Id, @Name, @Des, @Quan, @Barcode)";
             var command = new MySqlCommand(query, _con);
 
             command.Parameters.AddWithValue("@Id", product.ProductID);
             command.Parameters.AddWithValue("@Name", product.ProductName);
             command.Parameters.AddWithValue("@Des", product.ProductDescription);
             command.Parameters.AddWithValue("@Quan", product.ProductQuantity);
+            command.Parameters.AddWithValue("@Barcode", product.BarcodeId);
 
             command.ExecuteNonQuery();
 
@@ -141,7 +142,7 @@ namespace Warehouse.Database.Repository
             _con.Open();
 
             string query =
-                "SELECT ProductID, ProductName, ProductDescription, ProductQuantity FROM Product WHERE ProductID=@id";
+                "SELECT ProductID, ProductName, ProductDescription, ProductQuantity, BarcodeId FROM Product WHERE ProductID=@id";
             var command = new MySqlCommand(query, _con);
 
             command.Parameters.AddWithValue(@"id", ProductID.ToString());
@@ -153,10 +154,11 @@ namespace Warehouse.Database.Repository
                 product.ProductID = new Guid(reader["ProductID"].ToString());
                 product.ProductName = reader["ProductName"].ToString();
                 product.ProductDescription = reader["ProductDescription"].ToString();
-                product.ProductQuantity = (reader.GetInt32("ProductQuantity"));
+                product.ProductQuantity = reader.GetInt32("ProductQuantity");
+                product.BarcodeId = reader["BarcodeId"].ToString();
             }
-
             reader.Close();
+            
             _con.Close();
 
             return product;

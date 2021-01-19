@@ -20,7 +20,7 @@ namespace Warehouse.Webapp.Controllers
             _productRepository = productRepository;
         }
 
-        public IActionResult DeleteProduct(Product product)
+        public IActionResult DeleteProduct()
         {
             List<Product> products = _productRepository.GetAllProducts();
 
@@ -29,18 +29,18 @@ namespace Warehouse.Webapp.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Delete(Guid productID)
+        public IActionResult Delete(Guid productId)
         {
-            DeleteProduct selectedProduct = _productRepository.Delete(productID);
+            DeleteProduct selectedProduct = _productRepository.Delete(productId);
 
-            selectedProduct.ProductID = productID;
+            selectedProduct.ProductID = productId;
 
             return RedirectToAction("DeleteProduct", selectedProduct);
         }
 
-        public IActionResult GetProductDetails(Guid productID)
+        public IActionResult GetProductDetails(Guid productId)
         {
-            Product product = _productRepository.GetProductDetails(productID);
+            Product product = _productRepository.GetProductDetails(productId);
 
             ProductDetailsViewModel productModel = new ProductDetailsViewModel(product);
 
@@ -119,7 +119,8 @@ namespace Warehouse.Webapp.Controllers
                 ProductID = Guid.NewGuid(),
                 ProductName = product.ProductName,
                 ProductDescription = product.ProductDescription,
-                ProductQuantity = product.ProductQuantity
+                ProductQuantity = product.ProductQuantity,
+                BarcodeId = product.BarcodeId
             };
 
             _productRepository.AddProduct(newProduct);

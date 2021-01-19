@@ -11,5 +11,7 @@ namespace Warehouse.Webapp.Models
         public string ProductDescription { get; set; }
         
         public int ProductQuantity { get; set; }
+        
+        public string BarcodeId { get; set; }
     }
 }

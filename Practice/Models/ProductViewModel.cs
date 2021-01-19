@@ -28,10 +28,7 @@ namespace Warehouse.Webapp.Models
 
         [Required]
         public int ProductQuantity { get; set; }
-
-        public int AddQuantity { get; set; }
-
-        public int ReduceQuantity { get; set; }
-
+        
+        public string BarcodeId { get; set; }
     }
 }
